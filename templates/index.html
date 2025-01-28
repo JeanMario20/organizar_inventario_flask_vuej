@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="app">
+    <h3>Gestion de inventario</h3>
+    <input type="text" placeholder="Search bar">
+    <button>Buscar</button>
+    <button>Agregar</button>
+
+    <form action="">
+        <table style="width: 100%;">
+            <tr>
+                <th>nombre</th>
+                <th>Num Existentes</th>
+                <th>precio</th>
+            </tr>
+            <tr>
+                <th>producto 1</th>
+                <th>5</th>
+                <th>430$</th>
+                <th><button>disminuir</button></th>
+                <th><button>agregar num</button></th>
+                <th><button>borrar</button></th>
+            </tr>
+        </table>
+    </form>
+</div>
+
+
+
+
+    
+{% endblock %}

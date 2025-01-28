@@ -1,0 +1,9 @@
+.completed {
+    text-decoration: line-through;
+    color: red;
+}
+
+table, td, th{
+    border: 1px solid black
+}
+
