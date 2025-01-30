@@ -2,38 +2,28 @@ const { createApp } = Vue
 const TaskApp = {
     data(){
         return {
-            task: {
-                'title':''
-            },
-            tasks: []
+            sqlData: []
         }
     },
     async created() {
         await this.getResponse()
     },
     methods: {
-        async sendRequest(url,method,data){
-            const myHeaders = new Headers({
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            })
-
-            const response = await fetch(url,{
-                method: method,
-                headers:myHeaders,
-                body:data
-            })
-            return response
-        },
+        
 
         async getResponse(){
-            const response = await this.sendRequest(window.location,'get')
-            this.tasks = await response.json()
+            console.log('feroufhreyui');
+            //const res = await fetch(window.location);
+            const res = await fetch('/api/data');
+            const finalRes = await res.json();
+            this.sqlData = finalRes
+            console.log(this.sqlData);
+            
         },
-        
-        
 
-        
+        buttonCreate(){
+            console.log('dewferawfd')
+        }
 
     },
     delimiters: ['{', '}']
