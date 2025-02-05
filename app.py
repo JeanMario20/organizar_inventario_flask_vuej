@@ -24,5 +24,15 @@ def get_data():
         sqlData = [item.to_dict() for item in sqlData]
     return jsonify(sqlData)
 
+@app.route('/api/add_new_data', methods=['POST'])
+def addData():
+    data = request.get_json()
+    #print(data)
+    #newItem = models.inventario(data["nombre"], data["numExist"], data["precio"], data["ubicacion"])
+    newItem = models.inventario(nombre=data["nombre"], num_existente= data["numExist"], precio = data["precio"], ubicacion = data["ubicacion"])
+    db.session.add(newItem)
+    db.session.commit()
+    return jsonify(newItem)
+
 if __name__ == '__main__':
     app.run()
