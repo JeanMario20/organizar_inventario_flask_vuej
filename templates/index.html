@@ -22,7 +22,7 @@
                 <td> { data.precio }</td>
                 <td> { data.num_existente }</td>
                 <td><button>disminuir</button></td>
-                <td><button @click="increaseData(index)">agregar num</button></td>
+                <td><button @click="increaseData(data.nombre)">agregar num</button></td>
                 <td><button @click="deleteData(data.nombre)">borrar</button></td>
             </tr>
         </tbody>

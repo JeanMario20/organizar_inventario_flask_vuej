@@ -63,7 +63,7 @@ const TaskApp = {
             const response = await fetch("/api/increase_data",{
                 method: 'POST',
                 body: JSON.stringify({
-                    'id':data
+                    'nombre':data
                 }),
                 headers:{
                     'Content-type':'application/json',
