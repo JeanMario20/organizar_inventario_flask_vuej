@@ -35,12 +35,25 @@ def addData():
 @app.route('/api/delete_Data', methods=['POST'])
 def deleteData():
     data = request.get_json()
-    models.inventario.query.filter_by(id = data['id']).delete()
-    #u = db.session.get(models.inventario, sqlItem,)
+    print(data)
+    models.inventario.query.filter_by(nombre = data['nombre']).delete()
     db.session.commit()
-
-    #print(data['id'])
     return jsonify(data)
+
+@app.route('/api/increase_data', methods=['POST'])
+def increase_data():
+    data = request.get_json()
+    query = models.inventario.query.all()
+    print(query) #cuando quiero borrar un dato me aparece none pero si estan cuando pongo el query.all()
+    #user = models.inventario.query.filter_by(id = data['id']).first()
+    #print(user)
+    #user.num_existente = user.num_existente + 1
+    return jsonify(data)
+
+#borrar todos los datos:
+    #db.session.query(models.inventario).delete()
+    #db.session.commit()
+
 
 if __name__ == '__main__':
     app.run()

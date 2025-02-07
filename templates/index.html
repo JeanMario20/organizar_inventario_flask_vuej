@@ -12,18 +12,18 @@
         <thead>
             <tr>
                 <th>nombre</th>
-                <th>Num Existentes</th>
                 <th>precio</th>
+                <th>Num Existentes</th>
             </tr>
         </thead>
         <tbody>
             <tr @:submit.prevent v-for="(data,index) in sqlData" :key="index">
                 <td> { data.nombre }</td>
-                <td> { data.num_existente }</td>
                 <td> { data.precio }</td>
+                <td> { data.num_existente }</td>
                 <td><button>disminuir</button></td>
-                <td><button>agregar num</button></td>
-                <td><button @click="deleteData(index)">borrar</button></td>
+                <td><button @click="increaseData(index)">agregar num</button></td>
+                <td><button @click="deleteData(data.nombre)">borrar</button></td>
             </tr>
         </tbody>
         

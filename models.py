@@ -41,7 +41,7 @@ class inventario(app.db.Model):
         super().__init__(*args, **kwargs)
     
     def __repr__(self):
-        return f'<Model id: {self.id} - {self.nombre}'
+        return f'<Model id: {self.id} - {self.nombre}>'
     
     def to_dict(self):
         return asdict(self)

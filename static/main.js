@@ -12,6 +12,7 @@ const TaskApp = {
     },
     async created() {
         await this.getResponse()
+        console.log(this.sqlData)
     },
     methods: {
         async getResponse() {
@@ -50,10 +51,22 @@ const TaskApp = {
             const response = await fetch("/api/delete_Data",{
                 method: 'POST',
                 body: JSON.stringify({
-                    'id': data
+                    'nombre': data
                 }),
                 headers:{
                     'Content-Type':'application/json',
+                }
+            });
+            await this.getResponse();
+        },
+        async increaseData(data){
+            const response = await fetch("/api/increase_data",{
+                method: 'POST',
+                body: JSON.stringify({
+                    'id':data
+                }),
+                headers:{
+                    'Content-type':'application/json',
                 }
             });
             await this.getResponse();
