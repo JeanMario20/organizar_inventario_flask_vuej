@@ -27,12 +27,20 @@ def get_data():
 @app.route('/api/add_new_data', methods=['POST'])
 def addData():
     data = request.get_json()
-    #print(data)
-    #newItem = models.inventario(data["nombre"], data["numExist"], data["precio"], data["ubicacion"])
     newItem = models.inventario(nombre=data["nombre"], num_existente= data["numExist"], precio = data["precio"], ubicacion = data["ubicacion"])
     db.session.add(newItem)
     db.session.commit()
     return jsonify(newItem)
+
+@app.route('/api/delete_Data', methods=['POST'])
+def deleteData():
+    data = request.get_json()
+    models.inventario.query.filter_by(id = data['id']).delete()
+    #u = db.session.get(models.inventario, sqlItem,)
+    db.session.commit()
+
+    #print(data['id'])
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run()

@@ -18,16 +18,14 @@ const TaskApp = {
             const res = await fetch('/api/data');
             const finalRes = await res.json();
             this.sqlData = finalRes;
-            console.log(this.sqlData)
         },
+
         async addNewData() {
             var data = {
                 name: this.dataName,
                 numExist: this.dataNumExis,
                 precio: this.dataPrecio,
             }
-            console.log(data)
-            console.log(JSON.stringify(data))
 
             this.dataName = null;
             this.dataNumExis = null;
@@ -45,6 +43,19 @@ const TaskApp = {
                     'Content-Type': 'application/json',
                 }
             })
+            await this.getResponse();
+        },
+
+        async deleteData(data){
+            const response = await fetch("/api/delete_Data",{
+                method: 'POST',
+                body: JSON.stringify({
+                    'id': data
+                }),
+                headers:{
+                    'Content-Type':'application/json',
+                }
+            });
             await this.getResponse();
         }
 

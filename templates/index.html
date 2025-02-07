@@ -5,49 +5,29 @@
     <h3>Gestion de inventario</h3>
     
 
-    <form action="">
-        <input type="text" placeholder="Search bar">
-        <button >Buscar</button>
-        <button onclick="buttonCreate()">Agregar</button>
-        <table style="width: 100%;">
-            <thead>
-                <tr>
-                    <th>nombre</th>
-                    <th>Num Existentes</th>
-                    <th>precio</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>producto 1</th>
-                    <th>5</th>
-                    <th>430$</th>
-                    <th><button>disminuir</button></th>
-                    <th><button>agregar num</button></th>
-                    <th><button>borrar</button></th>
-                </tr>
-                
-                <tr v-for="(data,index) in sqlData" :key="index">
-                    <td> { data.nombre }</td>
-                    <td> { data.num_existente }</td>
-                    <td> { data.precio }</td>
-                    <td><button>disminuir</button></td>
-                    <td><button>agregar num</button></td>
-                    <td><button>borrar</button></td>
-                </tr>
-
-                <!-- <form @submit="addNewData">
-                    <input type="text" name="nombre" placeholder="nombre">
-                    <input type="text" name="num_existente" placeholder="num_existente">
-                    <input type="text" name="precio" placeholder="precio">
-                    <button type="submit" @click="addNewData">agregar</button>
-                </form> -->
-                
-                
-            </tbody>
-            
-        </table>
-    </form>
+    <input type="text" placeholder="Search bar">
+    <button >Buscar</button>
+    <button onclick="buttonCreate()">Agregar</button>
+    <table style="width: 100%;">
+        <thead>
+            <tr>
+                <th>nombre</th>
+                <th>Num Existentes</th>
+                <th>precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr @:submit.prevent v-for="(data,index) in sqlData" :key="index">
+                <td> { data.nombre }</td>
+                <td> { data.num_existente }</td>
+                <td> { data.precio }</td>
+                <td><button>disminuir</button></td>
+                <td><button>agregar num</button></td>
+                <td><button @click="deleteData(index)">borrar</button></td>
+            </tr>
+        </tbody>
+        
+    </table>
 
     <form @:submit.prevent="addNewData">
         <input type="text" v-model="dataName" placeholder="nombre">
