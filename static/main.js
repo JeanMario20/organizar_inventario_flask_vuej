@@ -59,18 +59,35 @@ const TaskApp = {
             });
             await this.getResponse();
         },
-        async increaseData(data){
-            const response = await fetch("/api/increase_data",{
+        async increaseData(data, action){
+            console.log(action)
+            const response = await fetch("/api/increase_or_decreased_data",{
                 method: 'POST',
                 body: JSON.stringify({
-                    'nombre':data
+                    'nombre':data,
+                    'action': 'increased',
                 }),
                 headers:{
                     'Content-type':'application/json',
                 }
             });
             await this.getResponse();
-        }
+        },
+
+        async decreasedData(data){
+            const response = await fetch('/api/increase_or_decreased_data',{
+                method: 'POST',
+                body: JSON.stringify({
+                    'nombre': data,
+                    'action' : 'decreased'
+                }),
+                headers:{
+                    'Content-type':'application/json',
+                }
+            });
+            await this.getResponse();
+        },
+
 
     },
     delimiters: ['{', '}']

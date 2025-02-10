@@ -40,13 +40,18 @@ def deleteData():
     db.session.commit()
     return jsonify(data)
 
-@app.route('/api/increase_data', methods=['POST'])
+@app.route('/api/increase_or_decreased_data', methods=['POST'])
 def increase_data():
     data = request.get_json()
     user = models.inventario.query.filter_by(nombre = data['nombre']).first()
-    user.num_existente = user.num_existente + 1
-    db.session.commit()
+    if data['action'] == "increased":
+        user.num_existente = user.num_existente + 1
+        db.session.commit()
+    if data['action'] == 'decreased':
+        user.num_existente = user.num_existente - 1
+        db.session.commit()
     return jsonify(data)
+
 
 #borrar todos los datos:
     #db.session.query(models.inventario).delete()
