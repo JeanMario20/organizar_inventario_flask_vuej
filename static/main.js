@@ -21,7 +21,7 @@ const TaskApp = {
             this.sqlData = finalRes;
         },
 
-        async addNewData() {
+        async addNewData(){
             var data = {
                 name: this.dataName,
                 numExist: this.dataNumExis,
@@ -32,61 +32,48 @@ const TaskApp = {
             this.dataNumExis = null;
             this.dataPrecio = null;
 
-            const response = await fetch("/api/add_new_data",{
-                method: 'POST',
-                body: JSON.stringify({
+            const body = JSON.stringify({
                     'nombre': data.name,
                     'numExist': data.numExist,
                     'precio': data.precio,
                     'ubicacion': 'Principal'
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                }
             })
-            await this.getResponse();
+            await this.sendDataBackend('/api/add_new_data',body);
         },
 
         async deleteData(data){
-            const response = await fetch("/api/delete_Data",{
-                method: 'POST',
-                body: JSON.stringify({
-                    'nombre': data
-                }),
-                headers:{
-                    'Content-Type':'application/json',
-                }
-            });
-            await this.getResponse();
+            const body = JSON.stringify({
+                'nombre': data
+            })
+            await this.sendDataBackend('/api/delete_Data',body);
         },
-        async increaseData(data, action){
-            console.log(action)
-            const response = await fetch("/api/increase_or_decreased_data",{
-                method: 'POST',
-                body: JSON.stringify({
-                    'nombre':data,
-                    'action': 'increased',
-                }),
-                headers:{
-                    'Content-type':'application/json',
-                }
-            });
-            await this.getResponse();
+
+        async increaseData(data){
+            const body = JSON.stringify({
+                "nombre": data,
+                'action': "increased"
+            })
+            await this.sendDataBackend('/api/increase_or_decreased_data',body);
         },
 
         async decreasedData(data){
-            const response = await fetch('/api/increase_or_decreased_data',{
+            const body = JSON.stringify({
+                "nombre": data,
+                "action": "decreased"
+            })
+            await this.sendDataBackend('/api/increase_or_decreased_data', body);
+        },
+
+        async sendDataBackend(url,body){
+            const response = await fetch(url,{
                 method: 'POST',
-                body: JSON.stringify({
-                    'nombre': data,
-                    'action' : 'decreased'
-                }),
-                headers:{
-                    'Content-type':'application/json',
+                body: body,
+                headers: {
+                    'Content-type': 'application/json',
                 }
             });
             await this.getResponse();
-        },
+        }
 
 
     },
