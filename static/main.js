@@ -6,19 +6,43 @@ const TaskApp = {
             dataName: null,
             dataNumExis: null,
             dataPrecio: null,
+            dataOldName: null,
+            dataNewName: null,
+            dataNewPrecio: null,
+            dataNewNumExist: null,
             sqlData: [],
-            newData: []
+            newData: [],
+            typeData: true,
         }
     },
     async created() {
         await this.getResponse()
-        console.log(this.sqlData)
     },
     methods: {
         async getResponse() {
             const res = await fetch('/api/data');
             const finalRes = await res.json();
             this.sqlData = finalRes;
+
+            //typeData = true hace que vuelvan a mostrar todos datos de la tabla cuando se quiso editar pero se cancelo
+            this.typeData = true;
+            this.resetInputs();
+        },
+
+        resetInputs(){
+            this.dataNewName = "";
+            this.dataNewPrecio = "";
+            this.dataNewNumExist = "";
+        },
+
+        async getIndex(getIndex){
+            this.typeData = false;
+            const body = JSON.stringify({
+                "nombre": getIndex
+            });
+            const res = await this.sendDataBackend('/api/get_index_table_principal',body);
+            const finalRes = await res.json()
+            this.sqlData = [finalRes]
         },
 
         async addNewData(){
@@ -39,6 +63,30 @@ const TaskApp = {
                     'ubicacion': 'Principal'
             })
             await this.sendDataBackend('/api/add_new_data',body);
+            await this.getResponse();
+        },
+
+        async editData(){
+            var data = {
+                dataOldName: this.dataOldName,
+                dataNewName: this.dataNewName,
+                numExist: this.dataNumExis,
+                precio: this.precio
+            }
+
+            this.dataName = null;
+            this.dataNumExis = null;
+            this.dataPrecio = null;
+            this.dataOldName = null;
+            this.dataNewName = null;
+
+            const body = JSON.stringify({
+                "nombre":data.name,
+                'numExist': data.numExist,
+                'precio': data.precio
+            })
+
+            //await this.sendDataBackend('/api/edit_data',body)
         },
 
         async deleteData(data){
@@ -46,6 +94,7 @@ const TaskApp = {
                 'nombre': data
             })
             await this.sendDataBackend('/api/delete_Data',body);
+            await this.getResponse();
         },
 
         async increaseData(data){
@@ -54,6 +103,7 @@ const TaskApp = {
                 'action': "increased"
             })
             await this.sendDataBackend('/api/increase_or_decreased_data',body);
+            await this.getResponse();
         },
 
         async decreasedData(data){
@@ -62,6 +112,7 @@ const TaskApp = {
                 "action": "decreased"
             })
             await this.sendDataBackend('/api/increase_or_decreased_data', body);
+            await this.getResponse();
         },
 
         async sendDataBackend(url,body){
@@ -72,7 +123,8 @@ const TaskApp = {
                     'Content-type': 'application/json',
                 }
             });
-            await this.getResponse();
+            //await this.getResponse();
+            return response
         }
 
 

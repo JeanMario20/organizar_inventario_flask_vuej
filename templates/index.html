@@ -17,17 +17,31 @@
             </tr>
         </thead>
         <tbody>
-            <tr @:submit.prevent v-for="(data,index) in sqlData" :key="index">
-                <td> { data.nombre }</td>
-                <td> { data.precio }</td>
-                <td> { data.num_existente }</td>
-                <td><button @click="decreasedData(data.nombre)">disminuir</button></td>
-                <td><button @click="increaseData(data.nombre)">agregar num</button></td>
-                <td><button @click="deleteData(data.nombre)">borrar</button></td>
+            <tr @:submit.prevent v-for="(data,index) in sqlData" :key="index" @dblclick = "getIndex(data.nombre)">
+                    <td v-if="typeData"> { data.nombre }</td>
+                    <td v-if="typeData"> { data.precio }</td>
+                    <td v-if="typeData"> { data.num_existente }</td>
+                    <td v-if="typeData"><button @click="decreasedData(data.nombre)">disminuir</button></td>
+                    <td v-if="typeData"><button @click="increaseData(data.nombre)">agregar num</button></td>
+                    <!-- <td><button @click="">Editar</button></td> -->
+                    <td v-if="typeData"><button @click="deleteData(data.nombre)">borrar</button></td>
+
+                    <td v-if="!typeData"><input ref="inputName" type="text" v-model="dataNewName" placeholder="nombre"></td>
+                    <td v-if="!typeData"><input ref="inputPrecio" type="text" v-model="dataNewPrecio" placeholder="precio"></td>
+                    <td v-if="!typeData"><input ref="inputNumExist" type="text" v-model="dataNewNumExist" placeholder="dataNumExis"></td>
+                    <td v-if="!typeData"><button @click="editData(data.nombre)">confirmar</button></td>
+                    <td v-if="!typeData"><button @click="getResponse()">cancelar</button></td>
             </tr>
         </tbody>
         
     </table>
+
+    <!-- <div @dblclick = "typeData = !typeData">
+        <h2 v-if="typeData">esto es una prueba</h2>
+        <input v-else type="text" placeholder="prueba">
+        <button @click = "typeData = !typeData">toggle</button>
+    </div> -->
+    <br>
 
     <form @:submit.prevent="addNewData">
         <input type="text" v-model="dataName" placeholder="nombre">

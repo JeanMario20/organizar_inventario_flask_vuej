@@ -24,6 +24,17 @@ def get_data():
         sqlData = [item.to_dict() for item in sqlData]
     return jsonify(sqlData)
 
+@app.route('/api/get_index_table_principal', methods=['POST'])
+def getIndex():
+    data = request.get_json()
+    index = models.inventario.query.filter_by(nombre = data['nombre']).first()
+    index2 = models.inventario.query.all()
+    print(type(index))
+    print(index2)
+    #indexlist = list(index)
+    #print(type(index))
+    return jsonify(index)
+
 @app.route('/api/add_new_data', methods=['POST'])
 def addData():
     data = request.get_json()
@@ -31,6 +42,14 @@ def addData():
     db.session.add(newItem)
     db.session.commit()
     return jsonify(newItem)
+
+@app.route('/api/edit_data', methods=['POST'])
+def editData():
+    data = request.get_json()
+    editData = models.inventario.query.filter_by(nombre = data)
+    return jsonify(data)
+
+
 
 @app.route('/api/delete_Data', methods=['POST'])
 def deleteData():
