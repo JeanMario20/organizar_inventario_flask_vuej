@@ -29,10 +29,6 @@ def getIndex():
     data = request.get_json()
     index = models.inventario.query.filter_by(nombre = data['nombre']).first()
     index2 = models.inventario.query.all()
-    print(type(index))
-    print(index2)
-    #indexlist = list(index)
-    #print(type(index))
     return jsonify(index)
 
 @app.route('/api/add_new_data', methods=['POST'])
@@ -46,7 +42,11 @@ def addData():
 @app.route('/api/edit_data', methods=['POST'])
 def editData():
     data = request.get_json()
-    editData = models.inventario.query.filter_by(nombre = data)
+    editData = models.inventario.query.filter_by(nombre = data["oldName"]).first()
+    editData.nombre = data["newName"]
+    editData.precio = data["newPrecio"]
+    editData.num_existente = data["newNumExist"]
+    db.session.commit()
     return jsonify(data)
 
 

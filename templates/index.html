@@ -26,9 +26,9 @@
                     <!-- <td><button @click="">Editar</button></td> -->
                     <td v-if="typeData"><button @click="deleteData(data.nombre)">borrar</button></td>
 
-                    <td v-if="!typeData"><input ref="inputName" type="text" v-model="dataNewName" placeholder="nombre"></td>
-                    <td v-if="!typeData"><input ref="inputPrecio" type="text" v-model="dataNewPrecio" placeholder="precio"></td>
-                    <td v-if="!typeData"><input ref="inputNumExist" type="text" v-model="dataNewNumExist" placeholder="dataNumExis"></td>
+                    <td v-if="!typeData"><input type="text" v-model="dataNewName" placeholder="nombre"></td>
+                    <td v-if="!typeData"><input type="text" v-model="dataNewPrecio" placeholder="precio"></td>
+                    <td v-if="!typeData"><input type="text" v-model="dataNewNumExist" placeholder="dataNumExis"></td>
                     <td v-if="!typeData"><button @click="editData(data.nombre)">confirmar</button></td>
                     <td v-if="!typeData"><button @click="getResponse()">cancelar</button></td>
             </tr>

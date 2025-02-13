@@ -35,8 +35,16 @@ const TaskApp = {
             this.dataNewNumExist = "";
         },
 
-        async getIndex(getIndex){
+        showAllData(){
+            this.typeData = true;
+        },
+
+        hideAllData(){
             this.typeData = false;
+        },
+
+        async getIndex(getIndex){
+            this.hideAllData();
             const body = JSON.stringify({
                 "nombre": getIndex
             });
@@ -66,27 +74,24 @@ const TaskApp = {
             await this.getResponse();
         },
 
-        async editData(){
-            var data = {
-                dataOldName: this.dataOldName,
-                dataNewName: this.dataNewName,
-                numExist: this.dataNumExis,
-                precio: this.precio
-            }
-
-            this.dataName = null;
-            this.dataNumExis = null;
-            this.dataPrecio = null;
-            this.dataOldName = null;
-            this.dataNewName = null;
+        async editData(oldName){
 
             const body = JSON.stringify({
-                "nombre":data.name,
-                'numExist': data.numExist,
-                'precio': data.precio
+                "oldName": oldName,
+                "newName": this.dataNewName,
+                "newPrecio": this.dataNewPrecio,
+                "newNumExist": this.dataNewNumExist
             })
 
-            //await this.sendDataBackend('/api/edit_data',body)
+            this.dataName = null;
+            this.dataNewName = null;
+            this.dataPrecio = null;
+            this.dataNewPrecio = null;
+            this.dataNewNumExist = null;
+
+            await this.sendDataBackend('/api/edit_data',body)
+            this.showAllData();
+            this.getResponse();
         },
 
         async deleteData(data){
