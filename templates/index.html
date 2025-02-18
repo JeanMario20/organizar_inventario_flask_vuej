@@ -5,33 +5,45 @@
     <h3>Gestion de inventario</h3>
     
 
-    <input type="text" placeholder="Search bar">
-    <button >Buscar</button>
-    <button onclick="buttonCreate()">Agregar</button>
+    <input v-model="dataSearch" type="text" placeholder="Search bar">
+    <button @click="searchBar()">Buscar</button>
+    <button @click="resetSearchBarAndTable()">cancelar</button>
+    <button onclick="buttonCreate()">agregar nuevo item</button>
     <table style="width: 100%;">
         <thead>
             <tr>
-                <th>nombre</th>
-                <th>precio</th>
-                <th>Num Existentes</th>
+                <th v-if="foundItems">nombre</th>
+                <th v-if="foundItems">precio</th>
+                <th v-if="foundItems">Num Existentes</th>
+
+                <th v-if="!foundItems">nombre</th>
+
             </tr>
         </thead>
         <tbody>
-            <tr @:submit.prevent v-for="(data,index) in sqlData" :key="index" @dblclick = "getIndex(data.nombre)">
-                    <td v-if="typeData"> { data.nombre }</td>
-                    <td v-if="typeData"> { data.precio }</td>
-                    <td v-if="typeData"> { data.num_existente }</td>
-                    <td v-if="typeData"><button @click="decreasedData(data.nombre)">disminuir</button></td>
-                    <td v-if="typeData"><button @click="increaseData(data.nombre)">agregar num</button></td>
-                    <!-- <td><button @click="">Editar</button></td> -->
-                    <td v-if="typeData"><button @click="deleteData(data.nombre)">borrar</button></td>
+            <tr @:submit.prevent v-for="(data,index) in sqlData" :key="index" v-if="foundItems" @dblclick = "getIndex(data.nombre)">
 
-                    <td v-if="!typeData"><input type="text" v-model="dataNewName" placeholder="nombre"></td>
-                    <td v-if="!typeData"><input type="text" v-model="dataNewPrecio" placeholder="precio"></td>
-                    <td v-if="!typeData"><input type="text" v-model="dataNewNumExist" placeholder="dataNumExis"></td>
-                    <td v-if="!typeData"><button @click="editData(data.nombre)">confirmar</button></td>
-                    <td v-if="!typeData"><button @click="getResponse()">cancelar</button></td>
+                <td v-if="typeData"> { data.nombre }</td>
+                <td v-if="typeData"> { data.precio }</td>
+                <td v-if="typeData"> { data.num_existente }</td>
+                <td v-if="typeData"><button @click="decreasedData(data.nombre)">disminuir</button></td>
+                <td v-if="typeData"><button @click="increaseData(data.nombre)">agregar num</button></td>
+                <!-- <td><button @click="">Editar</button></td> -->
+                <td v-if="typeData"><button @click="deleteData(data.nombre)">borrar</button></td>
+
+                <td v-if="!typeData"><input type="text" v-model="dataNewName" placeholder="nombre"></td>
+                <td v-if="!typeData"><input type="text" v-model="dataNewPrecio" placeholder="precio"></td>
+                <td v-if="!typeData"><input type="text" v-model="dataNewNumExist" placeholder="dataNumExis"></td>
+                <td v-if="!typeData"><button @click="editData(data.nombre)">confirmar</button></td>
+                <td v-if="!typeData"><button @click="getResponse()">cancelar</button></td>
+
             </tr>
+
+            <!-- for por si no encuentra algun resultado en la busqueda, hacer el codigo mas ligero sin el for. -->
+            <tr @:submit.prevent v-for="(data2,index2) in sqlData" :key="index2" v-if="!foundItems" @dblclick = "getIndex(data2.nombre)">
+                <td v-if="!foundItems"> { data2.nombre }</td>
+            </tr>
+            <tr></tr>
         </tbody>
         
     </table>

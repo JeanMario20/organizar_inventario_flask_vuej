@@ -24,12 +24,18 @@ def get_data():
         sqlData = [item.to_dict() for item in sqlData]
     return jsonify(sqlData)
 
+#unir las dos funciones de get_index_table_principal = queryFilter_byName
 @app.route('/api/get_index_table_principal', methods=['POST'])
 def getIndex():
     data = request.get_json()
     index = models.inventario.query.filter_by(nombre = data['nombre']).first()
-    index2 = models.inventario.query.all()
     return jsonify(index)
+
+@app.route('/api/searchItem', methods=['POST'])
+def seachItem():
+    data = request.get_json()
+    seachItem = models.inventario.query.filter_by(nombre = data["nombre"]).first()
+    return jsonify(seachItem)
 
 @app.route('/api/add_new_data', methods=['POST'])
 def addData():

@@ -10,9 +10,11 @@ const TaskApp = {
             dataNewName: null,
             dataNewPrecio: null,
             dataNewNumExist: null,
+            dataSearch: null,
             sqlData: [],
             newData: [],
             typeData: true,
+            foundItems: true,
         }
     },
     async created() {
@@ -23,6 +25,7 @@ const TaskApp = {
             const res = await fetch('/api/data');
             const finalRes = await res.json();
             this.sqlData = finalRes;
+            console.log(finalRes);
 
             //typeData = true hace que vuelvan a mostrar todos datos de la tabla cuando se quiso editar pero se cancelo
             this.typeData = true;
@@ -120,6 +123,39 @@ const TaskApp = {
             await this.getResponse();
         },
 
+        async searchBar(){
+            const body = JSON.stringify({
+                "nombre": this.dataSearch
+            });
+
+            this.dataSearch = null;
+
+            const res = await this.sendDataBackend('/api/searchItem', body);
+            const finalRes = await res.json()
+            if(finalRes == null){
+                this.sqlData = [{
+                    "id":1,
+                    "nombre": "no hay resultados",
+                    "num_existente": "",
+                    "precio": "",
+                    "ubicacion": "Principal"
+                }]
+                this.foundItems = false
+            }
+            else{
+                console.log(finalRes);
+                this.sqlData = [finalRes];
+            }
+            
+
+        },
+
+        async resetSearchBarAndTable(){
+            this.foundItems = true;
+            this.typeData = true;
+            this.getResponse();
+        },
+
         async sendDataBackend(url,body){
             const response = await fetch(url,{
                 method: 'POST',
@@ -130,7 +166,7 @@ const TaskApp = {
             });
             //await this.getResponse();
             return response
-        }
+        },
 
 
     },
