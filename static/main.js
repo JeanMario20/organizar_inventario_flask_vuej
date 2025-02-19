@@ -15,6 +15,7 @@ const TaskApp = {
             newData: [],
             typeData: true,
             foundItems: true,
+            stillSearchItem: false,
         }
     },
     async created() {
@@ -22,14 +23,20 @@ const TaskApp = {
     },
     methods: {
         async getResponse() {
-            const res = await fetch('/api/data');
-            const finalRes = await res.json();
-            this.sqlData = finalRes;
-            console.log(finalRes);
+            //muestra todos los datos de la base de datos en la tabla
+            if(this.dataSearch == null){
+                const res = await fetch('/api/data');
+                const finalRes = await res.json();
+                this.sqlData = finalRes;
 
-            //typeData = true hace que vuelvan a mostrar todos datos de la tabla cuando se quiso editar pero se cancelo
-            this.typeData = true;
-            this.resetInputs();
+                //typeData = true hace que vuelvan a mostrar todos datos de la tabla cuando se quiso editar pero se cancelo
+                this.typeData = true;
+                this.resetInputs();
+            }
+            //mostrar nada mas el resultado de la barra de busqueda
+            if(this.dataSearch != null){
+                this.searchBar(this.dataSearch)
+            }
         },
 
         resetInputs(){
@@ -128,7 +135,6 @@ const TaskApp = {
                 "nombre": this.dataSearch
             });
 
-            this.dataSearch = null;
 
             const res = await this.sendDataBackend('/api/searchItem', body);
             const finalRes = await res.json()
@@ -143,7 +149,6 @@ const TaskApp = {
                 this.foundItems = false
             }
             else{
-                console.log(finalRes);
                 this.sqlData = [finalRes];
             }
             
@@ -153,6 +158,7 @@ const TaskApp = {
         async resetSearchBarAndTable(){
             this.foundItems = true;
             this.typeData = true;
+            this.dataSearch = null
             this.getResponse();
         },
 
@@ -173,9 +179,6 @@ const TaskApp = {
     delimiters: ['{', '}']
 }
 
-/*tengo que enviar de un formulario un post a mi vue 
-de mi vue mandar los nuevos datos al flask 
-del flask mandar a actualizar un nuevo dato a la base de datos con los datos del fomulario*/ 
 
 
 createApp(TaskApp).mount('#app')
