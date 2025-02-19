@@ -35,6 +35,7 @@ const TaskApp = {
             }
             //mostrar nada mas el resultado de la barra de busqueda
             if(this.dataSearch != null){
+                this.showAllData();
                 this.searchBar(this.dataSearch)
             }
         },
@@ -52,6 +53,7 @@ const TaskApp = {
         hideAllData(){
             this.typeData = false;
         },
+
 
         async getIndex(getIndex){
             this.hideAllData();
