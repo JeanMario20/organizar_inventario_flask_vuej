@@ -61,5 +61,34 @@
         <input type="text" v-model="dataPrecio" placeholder="precio">
         <button type="submit">agregar</button>
     </form>
+
+    <br>
+    <table>
+        <h4>Bodega</h4>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>precio</th>
+                <th>Num Existente</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr @submit.prevent v-for="(data,index) in bodegaData">
+                <td>{ data.nombre }</td>
+                <td>{ data.precio }</td>
+                <td>{ data.num_existente }</td>
+                <td><button>mover</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <form @:submit.prevent="addNewDataBodega">
+        <input type="text" v-model="dataName" placeholder="nombre">
+        <input type="text" v-model="dataNumExis" placeholder="num_existente">
+        <input type="text" v-model="dataPrecio" placeholder="precio">
+        <button type="submit">agregar</button>
+    </form>
+
 </div> 
 {% endblock %}

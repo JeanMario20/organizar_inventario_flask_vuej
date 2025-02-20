@@ -19,10 +19,15 @@ def index():
 
 @app.route('/api/data')
 def get_data():
-    sqlData = models.inventario.query.all()
+    sqlData = models.inventario.query.filter_by(ubicacion = "Principal")
     if not isinstance(sqlData, list):
         sqlData = [item.to_dict() for item in sqlData]
     return jsonify(sqlData)
+
+@app.route('/api/dataBodega')
+def get_data_bodega():
+    sqlBodegaData = models.inventario.query.filter_by(ubicacion = 'Bodega').all()
+    return jsonify(sqlBodegaData)
 
 #unir las dos funciones de get_index_table_principal = queryFilter_byName
 @app.route('/api/get_index_table_principal', methods=['POST'])

@@ -13,6 +13,7 @@ const TaskApp = {
             dataSearch: null,
             sqlData: [],
             newData: [],
+            bodegaData: [],
             typeData: true,
             foundItems: true,
             stillSearchItem: false,
@@ -20,6 +21,7 @@ const TaskApp = {
     },
     async created() {
         await this.getResponse()
+        await this.getBodegaData()
     },
     methods: {
         async getResponse() {
@@ -29,8 +31,7 @@ const TaskApp = {
                 const finalRes = await res.json();
                 this.sqlData = finalRes;
 
-                //typeData = true hace que vuelvan a mostrar todos datos de la tabla cuando se quiso editar pero se cancelo
-                this.typeData = true;
+                this.showAllData();
                 this.resetInputs();
             }
             //mostrar nada mas el resultado de la barra de busqueda
@@ -40,6 +41,13 @@ const TaskApp = {
             }
         },
 
+        async getBodegaData(){
+            const res = await fetch('/api/dataBodega');
+            const finalRes = await res.json();
+            this.bodegaData = finalRes
+            
+        },
+
         resetInputs(){
             this.dataNewName = "";
             this.dataNewPrecio = "";
@@ -47,6 +55,7 @@ const TaskApp = {
         },
 
         showAllData(){
+            //activar las etiquetas de mostrar la tabla y los btn de aumentar,disminuir,borrar
             this.typeData = true;
         },
 
@@ -83,6 +92,20 @@ const TaskApp = {
                     'ubicacion': 'Principal'
             })
             await this.sendDataBackend('/api/add_new_data',body);
+            await this.getResponse();
+        },
+
+        async addNewDataBodega(){
+            const body = JSON.stringify({
+                'nombre': this.dataName,
+                'precio': this.dataPrecio,
+                'numExist': this.dataNumExis,
+                'ubicacion':'Bodega'
+            })
+
+            this.clearModels();
+
+            await this.sendDataBackend('/api/add_new_data', body)
             await this.getResponse();
         },
 
@@ -174,6 +197,12 @@ const TaskApp = {
             });
             //await this.getResponse();
             return response
+        },
+
+        clearModels(){
+            this.dataName = null;
+            this.dataNumExis = null;
+            this.dataPrecio = null;
         },
 
 
