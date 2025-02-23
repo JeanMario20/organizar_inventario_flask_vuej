@@ -82,6 +82,16 @@ def increase_data():
         db.session.commit()
     return jsonify(data)
 
+@app.route('/api/moveLocationItems', methods=['POST'])
+def move_location_items():
+    data = request.get_json()
+    user = models.inventario.query.filter_by(nombre = data['nombre']).first()
+    if data['ubicacion'] == "Principal":
+        user.ubicacion = "Bodega"
+    if data['ubicacion'] == "Bodega":
+        user.ubicacion = "Principal"
+    db.session.commit()
+    return jsonify(data)
 
 #borrar todos los datos:
     #db.session.query(models.inventario).delete()

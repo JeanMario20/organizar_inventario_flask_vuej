@@ -21,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr @:submit.prevent v-for="(data,index) in sqlData" :key="index" v-if="foundItems" @dblclick = "getIndex(data.nombre)">
+            <tr @drop.prevent="handleDrop" @dragover.prevent="handleDragOver(data.nombre)" @dragstart="handleDragStart(data.nombre, data.ubicacion)" @:submit.prevent v-for="(data,index) in sqlData" :key="index" v-if="foundItems" @dblclick = "getIndex(data.nombre)" draggable="true">
 
                 <td v-if="typeData"> { data.nombre }</td>
                 <td v-if="typeData"> { data.precio }</td>
@@ -73,11 +73,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr @submit.prevent v-for="(data,index) in bodegaData">
+            <tr @drop.prevent="handleDrop" @dragover.prevent="handleDragOver(data.nombre)" @dragstart="handleDragStart(data.nombre, data.ubicacion)" @submit.prevent v-for="(data,index) in bodegaData" draggable="true" >
                 <td>{ data.nombre }</td>
                 <td>{ data.precio }</td>
                 <td>{ data.num_existente }</td>
-                <td><button>mover</button></td>
             </tr>
         </tbody>
     </table>

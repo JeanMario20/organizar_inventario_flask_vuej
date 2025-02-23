@@ -11,6 +11,9 @@ const TaskApp = {
             dataNewPrecio: null,
             dataNewNumExist: null,
             dataSearch: null,
+            oldIndexDrag: null,
+            newIndexDrag: null,
+            typeLocation: null,
             sqlData: [],
             newData: [],
             bodegaData: [],
@@ -197,6 +200,39 @@ const TaskApp = {
             });
             //await this.getResponse();
             return response
+        },
+
+        async handleDragStart(oldIndex, type){
+            this.oldIndexDrag = oldIndex;
+            this.typeLocation = type;
+        },
+
+        async handleDragOver(newIndex){
+            if(newIndex !== this.oldIndexDrag){
+                this.newIndexDrag = newIndex;
+            }
+        },
+
+        async handleDrop(){
+            //se mandan a mover de ubicacion los items
+            const body = JSON.stringify({
+                "nombre":this.oldIndexDrag,
+                "ubicacion":this.typeLocation
+            });
+
+            this.oldIndexDrag = null;
+            this.newIndexDrag = null;
+
+            const res = await this.sendDataBackend('/api/moveLocationItems',body);
+            await this.getResponse();
+            await this.getBodegaData()
+
+        },
+
+
+        handleDragEnd(){
+            this.oldIndexDrag = null;
+            this.newIndexDrag = null;
         },
 
         clearModels(){
