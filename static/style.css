@@ -7,3 +7,49 @@ table, td, th{
     border: 1px solid black
 }
 
+body{
+    font-family: "arial";
+    height: 100%;
+    margin: 0;
+}
+
+.headling{
+    background-color: red;
+    position: relative;
+    padding: 1px;
+    margin-bottom: 40px;
+}
+
+.headling h2{
+    margin-left: 15px;
+}
+
+.headling-logo{
+    position: absolute;
+    right: 30px;
+    top: 0px;
+}
+
+.subheadling-button{
+    padding-left: 30px;
+    position: relative;
+}
+
+.subheadling-search{
+    position: absolute;
+}
+
+.button {
+    background-color: #04AA6D; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 6px;
+
+  }
