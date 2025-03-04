@@ -48,10 +48,20 @@
                 <td v-if="typeData"> { data.nombre }</td>
                 <td v-if="typeData"> { data.precio }</td>
                 <td v-if="typeData"> { data.num_existente }</td>
-                <td v-if="typeData"><button @click="decreasedData(data.nombre)">disminuir</button></td>
-                <td v-if="typeData"><button @click="increaseData(data.nombre)">agregar num</button></td>
-                <!-- <td><button @click="">Editar</button></td> -->
-                <td v-if="typeData"><button @click="deleteData(data.nombre)">borrar</button></td>
+                <td v-if="typeData">
+                    <div class="flex-container">
+                        <div class="flex-child">
+                            <svg class="btn-icon" @click="increaseData(data.nombre)" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
+                            <svg class="btn-icon" @click="decreasedData(data.nombre)" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-440v-80h560v80H200Z"/></svg>
+
+                        </div>
+                        <div class="flex-child center">
+                            <button class="btn trash" @click="deleteData(data.nombre)">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </td>
 
                 <td v-if="!typeData"><input type="text" v-model="dataNewName" placeholder="nombre"></td>
                 <td v-if="!typeData"><input type="text" v-model="dataNewPrecio" placeholder="precio"></td>
