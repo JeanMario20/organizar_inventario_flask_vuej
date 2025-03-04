@@ -3,9 +3,16 @@
     color: red;
 }
 
-table, td, th{
-    border: 1px solid black
+table{
+    width: 50%;
 }
+
+table, td, th{
+    border-bottom: 1px solid #ddd;
+    width: 40%;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
 
 body{
     font-family: "arial";
@@ -37,6 +44,8 @@ body{
 
 .subheadling-search{
     position: absolute;
+    bottom: 17px;
+    right: 20px;
 }
 
 .button {
@@ -48,8 +57,47 @@ body{
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
     border-radius: 6px;
-
+    
   }
+
+.searchItem{
+    border: none;
+    border-radius: 20px;
+    background: #c4c1c7;
+    height: 35px;
+    float: left;
+}
+
+.btn {
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+  padding-bottom: 10px;
+  border-radius: 6px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+  width: 39px;
+  height: 40px;
+  float: left;
+}
+
+.trash{
+    background-color: red;
+    border-color:white;
+}
+
+.default {
+  border-color: #e7e7e7;
+  color: black;
+}
+
+.table-center{
+    padding: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
