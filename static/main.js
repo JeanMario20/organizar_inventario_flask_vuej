@@ -32,6 +32,18 @@ const TaskApp = {
             if(this.dataSearch == null){
                 const res = await fetch('/api/data');
                 const finalRes = await res.json();
+                if(finalRes.length == 0){
+                    finalRes.push(
+                        {
+                            'id':1,
+                            'nombre':'el inventario esta vacio',
+                            'num_existente': 'N/A',
+                            'precio':'N/A',
+                            'ubicacion':'Bodega',
+                            'Borrar':'borrar'
+                        }
+                    );
+                }
                 this.sqlData = finalRes;
 
                 this.showAllData();
@@ -47,7 +59,19 @@ const TaskApp = {
         async getBodegaData(){
             const res = await fetch('/api/dataBodega');
             const finalRes = await res.json();
-            this.bodegaData = finalRes
+            if(finalRes.length == 0){
+                finalRes.push(
+                    {
+                        'id':1,
+                        'nombre':'la bodega esta vacia',
+                        'num_existente': 'N/A',
+                        'precio':'N/A',
+                        'ubicacion':'Bodega',
+                        'Borrar':'borrar'
+                    }
+                );
+            }
+            this.bodegaData = finalRes;
             
         },
 
@@ -68,6 +92,9 @@ const TaskApp = {
 
 
         async getIndex(getIndex){
+            if(getIndex == 'el inventario esta vacio'){
+                return true
+            }
             this.hideAllData();
             const body = JSON.stringify({
                 "nombre": getIndex
@@ -141,6 +168,9 @@ const TaskApp = {
         },
 
         async increaseData(data){
+            if(data == 'el inventario esta vacio'){
+                return true
+            }
             const body = JSON.stringify({
                 "nombre": data,
                 'action': "increased"
@@ -150,6 +180,9 @@ const TaskApp = {
         },
 
         async decreasedData(data){
+            if(data == 'el inventario esta vacio'){
+                return true
+            }
             const body = JSON.stringify({
                 "nombre": data,
                 "action": "decreased"
@@ -203,6 +236,9 @@ const TaskApp = {
         },
 
         async handleDragStart(oldIndex, type){
+            if(oldIndex == "la bodega esta vacia"){
+                return true;
+            }
             this.oldIndexDrag = oldIndex;
             this.typeLocation = type;
         },

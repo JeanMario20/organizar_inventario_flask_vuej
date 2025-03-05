@@ -112,6 +112,10 @@ body{
     text-align: center;
 }
 
+.table-left{
+    width: 450px;
+}
+
 .flex-container{
     display: flex;
 }
@@ -127,4 +131,16 @@ body{
 .center{
     margin: auto;
 
+}
+
+.bodega-settings{
+    background-color: #04AA6D;
+    position: absolute;
+    top: 98%;
+    width: 700px;
+    font-size: larger;
+    height: 22px;
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
 }
