@@ -20,6 +20,7 @@ const TaskApp = {
             typeData: true,
             foundItems: true,
             stillSearchItem: false,
+            showBodega:false
         }
     },
     async created() {
@@ -276,6 +277,14 @@ const TaskApp = {
             this.dataNumExis = null;
             this.dataPrecio = null;
         },
+
+        showHideBodegaTable(){
+            if(this.showBodega == false){
+                this.showBodega = true
+            }else{
+                this.showBodega = false
+            }
+        }
 
 
     },

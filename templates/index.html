@@ -95,23 +95,7 @@
     </form>
 
     <br>
-    <table class="table-left">
-        <h4>Bodega</h4>
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>precio</th>
-                <th>Num Existente</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr @drop.prevent="handleDrop" @dragover.prevent="handleDragOver(data.nombre)" @dragstart="handleDragStart(data.nombre, data.ubicacion)" @submit.prevent v-for="(data,index) in bodegaData" draggable="true" >
-                <td>{ data.nombre }</td>
-                <td>{ data.precio }</td>
-                <td>{ data.num_existente }</td>
-            </tr>
-        </tbody>
-    </table>
+    
 
     <br>
     <form @:submit.prevent="addNewDataBodega">
@@ -121,7 +105,29 @@
         <button type="submit">agregar</button>
     </form>
 
-    <div class="bodega-settings">
+    <br>
+    
+
+    <div class="wall" v-show="showBodega">
+        <table class="table-left">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>precio</th>
+                    <th>Num Existente</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr @drop.prevent="handleDrop" @dragover.prevent="handleDragOver(data.nombre)" @dragstart="handleDragStart(data.nombre, data.ubicacion)" @submit.prevent v-for="(data,index) in bodegaData" draggable="true" >
+                    <td>{ data.nombre }</td>
+                    <td>{ data.precio }</td>
+                    <td>{ data.num_existente }</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="bodega-settings" @click="showHideBodegaTable()">
         abrir bodega
     </div>
 

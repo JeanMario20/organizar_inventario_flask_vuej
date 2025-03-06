@@ -96,7 +96,7 @@ body{
 }
 
 .trash{
-    background-color: red;
+    background-color: FF5151;
     border-color:white;
 }
 
@@ -114,6 +114,8 @@ body{
 
 .table-left{
     width: 450px;
+    background-color: D9D9D9;
+    margin: auto;
 }
 
 .flex-container{
@@ -134,13 +136,21 @@ body{
 }
 
 .bodega-settings{
-    background-color: #04AA6D;
+    background-color: #D9D9D9;
     position: absolute;
     top: 98%;
     width: 700px;
     font-size: larger;
     height: 22px;
     border-radius: 15px;
-    text-align: center;
     cursor: pointer;
+    text-align: center;
+}
+
+.wall{
+    background-color: D9D9D9;
+    height: 291px;
+    width: 700px;
+    position: fixed;
+    top: 70%;
 }
