@@ -45,10 +45,13 @@ def seachItem():
 @app.route('/api/add_new_data', methods=['POST'])
 def addData():
     data = request.get_json()
+    existItem = models.inventario.query.filter_by(nombre = data["nombre"]).first()
+    if existItem is not None:
+        return jsonify("el item ya existe")
     newItem = models.inventario(nombre=data["nombre"], num_existente= data["numExist"], precio = data["precio"], ubicacion = data["ubicacion"])
     db.session.add(newItem)
     db.session.commit()
-    return jsonify(newItem)
+    return jsonify("newItem")
 
 @app.route('/api/edit_data', methods=['POST'])
 def editData():

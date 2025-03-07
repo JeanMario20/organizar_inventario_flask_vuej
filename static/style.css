@@ -161,3 +161,37 @@ body{
     position: fixed;
     top: 70%;
 }
+
+/* alert modal */
+.alert{
+    background-color: #e41749;
+    min-height: 67px;
+    width: 200px;
+    max-width: 90%;
+    border-radius: 12px;
+    padding: 16px 22px 17px 20px;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    left: 85%
+}
+
+.icon__wrapper{
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.253);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.font-warning {
+    font-size: 21px;
+    color: #fff;
+    margin-left: 10px;
+}
+
+.mdi{
+    cursor: pointer;
+}

@@ -20,7 +20,9 @@ const TaskApp = {
             typeData: true,
             foundItems: true,
             stillSearchItem: false,
-            showBodega:false
+            showBodega:false,
+            modalAlert: false,
+            countDown:3
         }
     },
     async created() {
@@ -122,7 +124,12 @@ const TaskApp = {
                     'precio': data.precio,
                     'ubicacion': 'Principal'
             })
-            await this.sendDataBackend('/api/add_new_data',body);
+            const res = await this.sendDataBackend('/api/add_new_data',body);
+            const finalRes = await res.json();
+            if(finalRes == "el item ya existe"){
+                this.showHideModal();
+                return true
+            }
             await this.getResponse();
         },
 
@@ -284,7 +291,28 @@ const TaskApp = {
             }else{
                 this.showBodega = false
             }
+        },
+
+        showHideModal(){
+            if(this.countDown > 0){
+                this.modalAlert = true;
+                console.log(this.countDown)
+                setTimeout(() => {
+                    this.countDown -= 1;
+                    this.showHideModal();
+                }, 1000);
+            } else if(this.countDown === 0){
+                this.modalAlert = false;
+                this.countDown = 3
+            }
+            
+        },
+
+        buttonHideShowModal(){
+            this.modalAlert = !this.modalAlert
+            this.countDown = 0
         }
+        
 
 
     },
