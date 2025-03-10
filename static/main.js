@@ -22,6 +22,9 @@ const TaskApp = {
             stillSearchItem: false,
             showBodega:false,
             modalAlert: false,
+            showHideOverlay: false,
+            showHideinventarioForm: false,
+            showHideBodegaForm: false,
             countDown:3
         }
     },
@@ -128,8 +131,10 @@ const TaskApp = {
             const finalRes = await res.json();
             if(finalRes == "el item ya existe"){
                 this.showHideModal();
+                this.showHideOverlayInventario();
                 return true
             }
+            this.showHideOverlayInventario();
             await this.getResponse();
         },
 
@@ -143,8 +148,15 @@ const TaskApp = {
 
             this.clearModels();
 
-            await this.sendDataBackend('/api/add_new_data', body)
-            await this.getResponse();
+            const res = await this.sendDataBackend('/api/add_new_data', body);
+            const finalRes = await res.json()
+            if(finalRes == "el item ya existe"){
+                this.showHideModal();
+                this.showHideOverlayBodega();
+                return true
+            }
+            this.showHideOverlayBodega();
+            this.getBodegaData()
         },
 
         async editData(oldName){
@@ -311,7 +323,26 @@ const TaskApp = {
         buttonHideShowModal(){
             this.modalAlert = !this.modalAlert
             this.countDown = 0
-        }
+        },
+
+        showHideOverlayInventario(){
+            this.showHideOverlay = !this.showHideOverlay
+            this.showHideinventarioForm = !this.showHideinventarioForm
+        },
+
+        showHideOverlayBodega(){
+            this.showHideBodegaForm = !this.showHideBodegaForm
+            this.showHideOverlay = !this.showHideOverlay
+        },
+
+        exitOverlayForm(){
+            if(this.showHideinventarioForm == true){
+                this.showHideOverlayInventario();
+            }
+            if(this.showHideBodegaForm == true){
+                this.showHideOverlayBodega();
+            }
+        },
         
 
 

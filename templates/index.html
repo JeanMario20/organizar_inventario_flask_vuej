@@ -11,7 +11,7 @@
 
     <div class="subheadling-button">
         <!-- crear un popup para llenar el formulario de los modals buttonCreate() -->
-        <button onclick="buttonCreate()" class="button">Agregar</button>
+        <button @click="showHideOverlayInventario()" class="button">Agregar</button>
         <div class="subheadling-search">
             <input class="searchItem" v-model="dataSearch" type="text" placeholder="Search bar">
             <button class="btn default" @click="searchBar()">
@@ -98,25 +98,6 @@
     </div> -->
     <br>
 
-    <form @:submit.prevent="addNewData">
-        <input type="text" v-model="dataName" placeholder="nombre">
-        <input type="text" v-model="dataNumExis" placeholder="num_existente">
-        <input type="text" v-model="dataPrecio" placeholder="precio">
-        <button type="submit">agregar</button>
-    </form>
-
-    <br>
-    
-
-    <br>
-    <form @:submit.prevent="addNewDataBodega">
-        <input type="text" v-model="dataName" placeholder="nombre">
-        <input type="text" v-model="dataNumExis" placeholder="num_existente">
-        <input type="text" v-model="dataPrecio" placeholder="precio">
-        <button type="submit">agregar</button>
-    </form>
-
-    <br>
     
 
     <div class="wall" v-show="showBodega">
@@ -136,11 +117,44 @@
                 </tr>
             </tbody>
         </table>
+        <button @click="showHideOverlayBodega()" class="button">Agregar</button>
     </div>
 
     <div class="bodega-settings" @click="showHideBodegaTable()">
         abrir bodega
     </div>
+
+    <div class="overlay" v-show="showHideOverlay">
+        <div class="form-addItem-center">
+            <svg @click="exitOverlayForm()" class="close-form" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+            <h2>Nuevo Item</h2>
+            <form @:submit.prevent="addNewData" v-show="showHideinventarioForm">
+                <div class="form-group">
+                    <input v-model="dataName" class="inputAddItem" type="text" placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                    <input v-model="dataPrecio" class="inputAddItem" type="number" placeholder="Precio">
+                </div>
+                <div class="form-group">
+                    <input v-model="dataNumExis" class="inputAddItem" type="number" placeholder="Num Existente">
+                </div>
+                <button class="button" style="margin-top: 20px;" type="submit">Agregar</button>
+            </form>
+            <form @:submit.prevent="addNewDataBodega" v-show="showHideBodegaForm">
+                <div class="form-group">
+                    <input v-model="dataName" class="inputAddItem" type="text" placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                    <input v-model="dataPrecio" class="inputAddItem" type="number" placeholder="Precio">
+                </div>
+                <div class="form-group">
+                    <input v-model="dataNumExis" class="inputAddItem" type="number" placeholder="Num Existente">
+                </div>
+                <button class="button" style="margin-top: 20px;" type="submit">Agregar</button>
+            </form>
+        </div>
+    </div>
+    
 
 </div> 
 {% endblock %}
