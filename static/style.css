@@ -235,3 +235,21 @@ body{
     cursor: pointer;
     display: block;
 }
+
+@media screen and (max-width: 700px){
+    .container{
+        width: 699px;
+    }
+
+    .bodega-settings{
+        position: fixed;
+    }
+
+    .table-center{
+        display: contents;
+    }
+
+    .subheadling-button{
+        margin-bottom: 30px;
+    }
+}
